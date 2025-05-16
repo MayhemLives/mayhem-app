@@ -34,3 +34,14 @@ function updateScore(delta) {
   score += delta;
   document.getElementById("score").textContent = score;
 }
+
+function copyResult() {
+  const resultText = document.getElementById("result").textContent;
+  if (!resultText) return;
+
+  navigator.clipboard.writeText(resultText).then(() => {
+    const feedback = document.getElementById("copy-feedback");
+    feedback.style.display = "inline";
+    setTimeout(() => feedback.style.display = "none", 1500);
+  });
+}
