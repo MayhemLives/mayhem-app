@@ -22,21 +22,25 @@ const tables = {
 };
 
 let score = 0;
+let lastResult = "";
 
 function rollTable() {
   const select = document.getElementById("table-select").value;
   const results = tables[select];
   const random = results[Math.floor(Math.random() * results.length)];
+  lastResult = random;
   document.getElementById("result").textContent = random;
 }
 
 function rollAllTables() {
   let output = "";
+  lastResult = "";
   for (const [key, results] of Object.entries(tables)) {
     const random = results[Math.floor(Math.random() * results.length)];
-    output += `<strong>${key}:</strong> ${random}<br>`;
+    output += `${key}: ${random}\n`;
+    lastResult += `${key}: ${random}\n`;
   }
-  document.getElementById("result").innerHTML = output;
+  document.getElementById("result").innerText = lastResult;
 }
 
 function updateScore(delta) {
@@ -53,4 +57,21 @@ function copyResult() {
     feedback.style.display = "inline";
     setTimeout(() => feedback.style.display = "none", 1500);
   });
+}
+
+function saveFavorite() {
+  if (!lastResult) return;
+  let favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
+  if (!favorites.includes(lastResult)) {
+    favorites.push(lastResult);
+    localStorage.setItem("mayhemFavorites", JSON.stringify(favorites));
+    alert("Favorite saved!");
+  } else {
+    alert("Already in favorites.");
+  }
+}
+
+function showFavorites() {
+  const favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
+  alert("Favorites:\n\n" + favorites.join("\n\n"));
 }
