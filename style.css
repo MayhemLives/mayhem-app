@@ -1,0 +1,32 @@
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background: #111;
+  color: #fff;
+  padding: 2rem;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: crimson;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#result {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.score-controls {
+  margin-top: 1rem;
+}
+
+.score-controls button {
+  margin: 0 1rem;
+  font-size: 2rem;
+}

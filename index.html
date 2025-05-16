@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mayhem Tables</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Roll for Mayhem</h1>
+
+  <label for="table-select">Choose a table:</label>
+  <select id="table-select">
+    <option value="battleCries">Battle Cries</option>
+    <option value="wildMagic">Wild Magic</option>
+    <option value="disasterSeverity">Disaster Severity</option>
+    <option value="introLines">“I’m a…” Intro Lines</option>
+  </select>
+
+  <button onclick="rollTable()">ROLL</button>
+  <div id="result"></div>
+
+  <h2>Mayhem Score</h2>
+  <div class="score-controls">
+    <button onclick="updateScore(-1)">-</button>
+    <span id="score">0</span>
+    <button onclick="updateScore(1)">+</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
