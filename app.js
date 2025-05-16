@@ -30,13 +30,22 @@ function rollTable() {
   document.getElementById("result").textContent = random;
 }
 
+function rollAllTables() {
+  let output = "";
+  for (const [key, results] of Object.entries(tables)) {
+    const random = results[Math.floor(Math.random() * results.length)];
+    output += `<strong>${key}:</strong> ${random}<br>`;
+  }
+  document.getElementById("result").innerHTML = output;
+}
+
 function updateScore(delta) {
   score += delta;
   document.getElementById("score").textContent = score;
 }
 
 function copyResult() {
-  const resultText = document.getElementById("result").textContent;
+  const resultText = document.getElementById("result").innerText;
   if (!resultText) return;
 
   navigator.clipboard.writeText(resultText).then(() => {
