@@ -32,20 +32,23 @@ function rollTable() {
   document.getElementById("result").textContent = random;
 }
 
-function rollAllTables() {
-  let output = "";
-  lastResult = "";
-  for (const [key, results] of Object.entries(tables)) {
-    const random = results[Math.floor(Math.random() * results.length)];
-    output += `${key}: ${random}\n`;
-    lastResult += `${key}: ${random}\n`;
-  }
-  document.getElementById("result").innerText = lastResult;
-}
-
 function updateScore(delta) {
   score += delta;
   document.getElementById("score").textContent = score;
+  updateMeter();
+}
+
+function updateMeter() {
+  const meter = document.getElementById("chaos-meter-fill");
+  const label = document.getElementById("chaos-meter-label");
+  let percent = Math.min(Math.max(score, 0), 100);
+  meter.style.width = percent + "%";
+
+  if (percent < 20) label.textContent = "Chill";
+  else if (percent < 40) label.textContent = "Tense";
+  else if (percent < 60) label.textContent = "Rowdy";
+  else if (percent < 80) label.textContent = "Unhinged";
+  else label.textContent = "TOTAL MAYHEM";
 }
 
 function copyResult() {

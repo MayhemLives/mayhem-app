@@ -17,7 +17,6 @@
   </select>
 
   <button onclick="rollTable()">ROLL</button>
-  <button onclick="rollAllTables()">ROLL ALL</button>
   <div id="result"></div>
 
   <button onclick="copyResult()">Copy Result</button>
@@ -30,6 +29,11 @@
     <button onclick="updateScore(-1)">-</button>
     <span id="score">0</span>
     <button onclick="updateScore(1)">+</button>
+  </div>
+
+  <div id="chaos-meter-container">
+    <div id="chaos-meter-fill"></div>
+    <span id="chaos-meter-label">Chill</span>
   </div>
 
   <script src="app.js"></script>
