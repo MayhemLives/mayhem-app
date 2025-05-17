@@ -14,14 +14,6 @@
 </head>
 <body>
   <h1>Roll for Mayhem</h1>
-<label for="theme-select">Choose a Theme:</label>
-<select id="theme-select" onchange="setTheme(this.value)">
-  <option value="default">Default</option>
-  <option value="metal">Metalhead</option>
-  <option value="disco">Disco Mayhem</option>
-  <option value="retro">Retro Terminal</option>
-  <option value="unicorn">Unicorn Chaos</option>
-</select>
 
   <label for="table-select">Choose a table:</label>
   <select id="table-select">
@@ -32,9 +24,6 @@
   </select>
 
   <button onclick="rollTable()">ROLL</button>
-  <div id="poster-area" style="padding: 1rem; background: #222; color: #fff; border-radius: 10px; margin: 1rem auto; width: fit-content;">
-  <img src="icon.png" alt="Mayhem Seal" style="width: 100px; display: block; margin: auto;">
-  <div id="result" style="font-size: 1.5rem; margin-top: 1rem;"></div>
 <div style="margin-top: 1rem;">
   <button onclick="clearHistory()">🧹 Clear History</button>
   <button onclick="exportHistory()">📄 Export History</button>
@@ -90,20 +79,6 @@
       link.click();
     });
   }
-</script>
-<script>
-function setTheme(theme) {
-  document.body.className = "theme-" + theme;
-  document.querySelectorAll("button").forEach(btn => btn.className = "theme-" + theme);
-  document.getElementById("chaos-meter-fill").className = "theme-" + theme;
-  localStorage.setItem("mayhemTheme", theme);
-}
-
-window.onload = function() {
-  const savedTheme = localStorage.getItem("mayhemTheme") || "default";
-  setTheme(savedTheme);
-  document.getElementById("theme-select").value = savedTheme;
-};
 </script>
 </body>
 </html>
