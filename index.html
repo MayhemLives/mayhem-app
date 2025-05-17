@@ -24,22 +24,7 @@
   </select>
 
   <button onclick="rollTable()">ROLL</button>
-<div style="margin-top: 1rem;">
-  <button onclick="clearHistory()">🧹 Clear History</button>
-  <button onclick="exportHistory()">📄 Export History</button>
-</div>
-  <div id="poster-score" style="font-size: 1.2rem;">Score: <span id="poster-score-value">0</span></div>
-  <div id="poster-meter" style="margin-top: 0.5rem;">
-    <div style="background: #333; border-radius: 10px; overflow: hidden; width: 300px; height: 20px; margin: auto;">
-      <div id="poster-meter-fill" style="height: 100%; width: 0%; background: limegreen;"></div>
-    </div>
-    <div id="poster-meter-label" style="margin-top: 0.5rem;">Chill</div>
-  </div>
-</div>
-<button onclick="generatePoster()">📸 Save Poster</button>
-<div id="history-log" style="max-height: 200px; overflow-y: auto; margin-top: 2rem; background: #1a1a1a; padding: 1rem; border-radius: 10px; font-size: 0.9rem; color: #ccc;">
-  <strong>Session History:</strong>
-</div>
+  <div id="result"></div>
 
   <button onclick="copyResult()">Copy Result</button>
   <button onclick="saveFavorite()">⭐ Save Favorite</button>
@@ -64,21 +49,5 @@
 
   <script src="app.js"></script>
   <audio id="sfx-roll" src="roll.wav" preload="auto"></audio>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
-  function generatePoster() {
-    const posterScoreValue = document.getElementById("score").textContent;
-    document.getElementById("poster-score-value").textContent = posterScoreValue;
-    document.getElementById("poster-meter-fill").style.width = document.getElementById("chaos-meter-fill").style.width;
-    document.getElementById("poster-meter-label").textContent = document.getElementById("chaos-meter-label").textContent;
-
-    html2canvas(document.getElementById("poster-area")).then(canvas => {
-      const link = document.createElement('a');
-      link.download = 'mayhem_poster.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-  }
-</script>
 </body>
 </html>
