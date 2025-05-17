@@ -6,6 +6,10 @@ function logHistory(action, value) {
   history.unshift(`[${timestamp}] ${action}: ${value}`);
   const log = document.getElementById("history-log");
   if (log) {
+  const textArea = document.getElementById("history-text");
+  if (textArea) {
+    textArea.value = history.join('\n');
+  }
     log.innerHTML = history.slice(0, 50).map(item => `<div>${item}</div>`).join('');
   }
 }
