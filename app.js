@@ -159,3 +159,40 @@ function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
   alert("Favorites:\n\n" + favorites.join("\n\n"));
 }
+
+
+// History Logging Hooks
+const originalRollTable = rollTable;
+rollTable = function() {
+  const select = document.getElementById("table-select").value;
+  const results = tables[select];
+  const random = results[Math.floor(Math.random() * results.length)];
+  lastResult = random;
+  document.getElementById("result").textContent = random;
+  if (document.getElementById('toggle-sound')?.checked) {
+    document.getElementById('sfx-roll')?.play();
+  }
+  logHistory("Rolled from " + select, random);
+};
+
+const originalUpdateScore = updateScore;
+updateScore = function(delta) {
+  score += delta;
+  document.getElementById("score").textContent = score;
+  updateMeter();
+  logHistory("Score " + (delta > 0 ? "increased to" : "decreased to"), score);
+};
+
+const originalSaveFavorite = saveFavorite;
+saveFavorite = function() {
+  if (!lastResult) return;
+  let favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
+  if (!favorites.includes(lastResult)) {
+    favorites.push(lastResult);
+    localStorage.setItem("mayhemFavorites", JSON.stringify(favorites));
+    alert("Favorite saved!");
+    logHistory("Favorite saved", lastResult);
+  } else {
+    alert("Already in favorites.");
+  }
+};
