@@ -143,6 +143,7 @@ function rollTable() {
   lastResult = random;
   document.getElementById("result").textContent = random;
   logHistory("Rolled from " + select, random);
+  logHistory("Rolled from " + select, random);
   if (document.getElementById('toggle-sound').checked) {
     document.getElementById('sfx-roll').play();
   }
