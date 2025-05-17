@@ -206,3 +206,20 @@ saveFavorite = function() {
     alert("Already in favorites.");
   }
 };
+
+
+function clearHistory() {
+  history = [];
+  document.getElementById("history-log").innerHTML = "<strong>Session History:</strong>";
+}
+
+function exportHistory() {
+  const text = history.join('\n');
+  const blob = new Blob([text], {{ type: "text/plain" }});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.download = "mayhem_history.txt";
+  link.href = url;
+  link.click();
+  URL.revokeObjectURL(url);
+}
