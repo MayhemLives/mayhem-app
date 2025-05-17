@@ -14,6 +14,14 @@
 </head>
 <body>
   <h1>Roll for Mayhem</h1>
+<label for="theme-select">Choose a Theme:</label>
+<select id="theme-select" onchange="setTheme(this.value)">
+  <option value="default">Default</option>
+  <option value="metal">Metalhead</option>
+  <option value="disco">Disco Mayhem</option>
+  <option value="retro">Retro Terminal</option>
+  <option value="unicorn">Unicorn Chaos</option>
+</select>
 
   <label for="table-select">Choose a table:</label>
   <select id="table-select">
@@ -82,6 +90,20 @@
       link.click();
     });
   }
+</script>
+<script>
+function setTheme(theme) {
+  document.body.className = "theme-" + theme;
+  document.querySelectorAll("button").forEach(btn => btn.className = "theme-" + theme);
+  document.getElementById("chaos-meter-fill").className = "theme-" + theme;
+  localStorage.setItem("mayhemTheme", theme);
+}
+
+window.onload = function() {
+  const savedTheme = localStorage.getItem("mayhemTheme") || "default";
+  setTheme(savedTheme);
+  document.getElementById("theme-select").value = savedTheme;
+};
 </script>
 </body>
 </html>
