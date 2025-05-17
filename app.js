@@ -105,7 +105,12 @@ let lastResult = "";
 function rollTable() {
   const select = document.getElementById("table-select").value;
   const results = tables[select];
-  const random = results[Math.floor(Math.random() * results.length)];
+  let attempts = 0;
+  let random;
+  do {
+    random = results[Math.floor(Math.random() * results.length)];
+    attempts++;
+  } while (random === lastResult && attempts < 10);
   lastResult = random;
   document.getElementById("result").textContent = random;
   if (document.getElementById('toggle-sound').checked) {
