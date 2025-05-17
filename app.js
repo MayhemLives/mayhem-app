@@ -159,3 +159,50 @@ function showFavorites() {
   const favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
   alert("Favorites:\n\n" + favorites.join("\n\n"));
 }
+
+
+let history = [];
+
+function logHistory(action, value) {
+  const timestamp = new Date().toLocaleTimeString();
+  history.unshift(`[${timestamp}] ${action}: ${value}`);
+  document.getElementById("history-log").innerHTML = history.slice(0, 50).map(item => `<div>${item}</div>`).join('');
+}
+
+// Hook rollTable
+const originalRollTable = rollTable;
+rollTable = function() {
+  const select = document.getElementById("table-select").value;
+  const results = tables[select];
+  const random = results[Math.floor(Math.random() * results.length)];
+  lastResult = random;
+  document.getElementById("result").textContent = random;
+  logHistory("Rolled from " + select, random);
+  if (document.getElementById('toggle-sound').checked) {
+    document.getElementById('sfx-roll').play();
+  }
+};
+
+// Hook updateScore
+const originalUpdateScore = updateScore;
+updateScore = function(delta) {
+  score += delta;
+  document.getElementById("score").textContent = score;
+  logHistory("Score " + (delta > 0 ? "increased to" : "decreased to"), score);
+  updateMeter();
+};
+
+// Hook saveFavorite
+const originalSaveFavorite = saveFavorite;
+saveFavorite = function() {
+  if (!lastResult) return;
+  let favorites = JSON.parse(localStorage.getItem("mayhemFavorites") || "[]");
+  if (!favorites.includes(lastResult)) {
+    favorites.push(lastResult);
+    localStorage.setItem("mayhemFavorites", JSON.stringify(favorites));
+    alert("Favorite saved!");
+    logHistory("Favorite saved", lastResult);
+  } else {
+    alert("Already in favorites.");
+  }
+};
