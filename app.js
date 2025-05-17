@@ -1,3 +1,32 @@
+
+let history = [];
+
+function logHistory(action, value) {
+  const timestamp = new Date().toLocaleTimeString();
+  history.unshift(`[${timestamp}] ${action}: ${value}`);
+  const log = document.getElementById("history-log");
+  if (log) {
+    log.innerHTML = history.slice(0, 50).map(item => `<div>${item}</div>`).join('');
+  }
+}
+
+function clearHistory() {
+  history = [];
+  const log = document.getElementById("history-log");
+  if (log) log.innerHTML = "<strong>Session History:</strong>";
+}
+
+function exportHistory() {
+  const text = history.join('\n');
+  const blob = new Blob([text], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.download = "mayhem_history.txt";
+  link.href = url;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
 const tables = {
   "battleCries": [
     "Let's roll for damage and dignity!",
@@ -113,6 +142,7 @@ function rollTable() {
   } while (random === lastResult && attempts < 10);
   lastResult = random;
   document.getElementById("result").textContent = random;
+  logHistory("Rolled from " + select, random);
   if (document.getElementById('toggle-sound').checked) {
     document.getElementById('sfx-roll').play();
   }
@@ -122,6 +152,7 @@ function updateScore(delta) {
   score += delta;
   document.getElementById("score").textContent = score;
   updateMeter();
+  logHistory("Score " + (delta > 0 ? "increased to" : "decreased to"), score);
 }
 
 function updateMeter() {
@@ -155,6 +186,7 @@ function saveFavorite() {
     favorites.push(lastResult);
     localStorage.setItem("mayhemFavorites", JSON.stringify(favorites));
     alert("Favorite saved!");
+    logHistory("Favorite saved", lastResult);
   } else {
     alert("Already in favorites.");
   }
