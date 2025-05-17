@@ -1,81 +1,31 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   font-family: 'Arial', sans-serif;
   text-align: center;
-  background: #708090; /* Slate grey */
+  background: #111;
   color: #fff;
   padding: 2rem;
   margin: 0;
 }
-
-h1 {
-  font-size: 4rem;
-}
-
-select, button {
-  font-size: 2rem;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-  max-width: 100%;
-}
-
-select {
-  color: black;
-}
-
 button {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
   background-color: crimson;
   border: none;
   color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
-
 #result {
   margin-top: 2rem;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  padding: 1rem;
 }
-
 .score-controls {
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  margin-top: 1rem;
+  gap: 2rem;
 }
-
-.score-controls button {
-  font-size: 4rem;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
-}
-
-/* Responsive tweaks */
-@media (max-width: 600px) {
-  body {
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  #result {
-    font-size: 2.2rem;
-  }
-
-  .score-controls {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
 #chaos-meter-container {
   position: relative;
   background: #333;
@@ -85,14 +35,12 @@ button {
   border-radius: 10px;
   overflow: hidden;
 }
-
 #chaos-meter-fill {
   background: limegreen;
   height: 100%;
   width: 0%;
   transition: width 0.3s ease;
 }
-
 #chaos-meter-label {
   position: absolute;
   width: 100%;

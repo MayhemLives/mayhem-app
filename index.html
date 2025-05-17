@@ -4,25 +4,9 @@
   <meta charset="UTF-8">
   <title>Mayhem Tables</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log("Service Worker Registered"));
-    }
-  </script>
 </head>
 <body>
-
-<div id="history-log" style="max-height: 200px; overflow-y: auto; margin-top: 2rem; background: #1a1a1a; padding: 1rem; border-radius: 10px; font-size: 0.9rem; color: #ccc;">
-  <strong>Session History:</strong>
-</div>
-<div style="margin-top: 1rem;">
-  <button onclick="clearHistory()">🧹 Clear History</button>
-  <button onclick="exportHistory()">📄 Export History</button>
-</div>
   <h1>Roll for Mayhem</h1>
-
   <label for="table-select">Choose a table:</label>
   <select id="table-select">
     <option value="battleCries">Battle Cries</option>
@@ -30,59 +14,23 @@
     <option value="disasterSeverity">Disaster Severity</option>
     <option value="introLines">“I’m a…” Intro Lines</option>
   </select>
-
   <button onclick="rollTable()">ROLL</button>
   <div id="result"></div>
-
   <button onclick="copyResult()">Copy Result</button>
   <button onclick="saveFavorite()">⭐ Save Favorite</button>
   <button onclick="showFavorites()">📜 Show Favorites</button>
   <span id="copy-feedback" style="display:none; font-size: 1rem; color: lime;">Copied!</span>
-
-  <label style="display:block; margin-top:1rem;">
-      <input type="checkbox" id="toggle-sound" checked>
-      Enable Sound Effects
-    </label>
-<h2>Mayhem Score</h2>
+  <h2>Mayhem Score</h2>
   <div class="score-controls">
     <button onclick="updateScore(-1)">-</button>
     <span id="score">0</span>
     <button onclick="updateScore(1)">+</button>
   </div>
-
   <div id="chaos-meter-container">
     <div id="chaos-meter-fill"></div>
     <span id="chaos-meter-label">Chill</span>
   </div>
-
-  <script src="app.js"></script>
   <audio id="sfx-roll" src="roll.wav" preload="auto"></audio>
-</body>
-
-<script>
-let history = [];
-
-function logHistory(action, value) {
-  const timestamp = new Date().toLocaleTimeString();
-  history.unshift(`[${timestamp}] ${action}: ${value}`);
-  document.getElementById("history-log").innerHTML = history.slice(0, 50).map(item => `<div>${item}</div>`).join('');
-}
-
-function clearHistory() {
-  history = [];
-  document.getElementById("history-log").innerHTML = "<strong>Session History:</strong>";
-}
-
-function exportHistory() {
-  const text = history.join('\n');
-  const blob = new Blob([text], { type: "text/plain" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.download = "mayhem_history.txt";
-  link.href = url;
-  link.click();
-  URL.revokeObjectURL(url);
-}
-</script>
+  <script src="app.js"></script>
 </body>
 </html>
