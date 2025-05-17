@@ -24,8 +24,11 @@ function exportHistory() {
   const text = history.join('\n');
   const blob = new Blob([text], { type: "text/plain" });
   const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.download = "mayhem_history.txt";
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, "mayhem_history.txt");
+  } else {
+    const link = document.createElement("a");
+    link.download = "mayhem_history.txt";
   link.href = url;
   link.click();
   URL.revokeObjectURL(url);
@@ -148,7 +151,10 @@ function rollTable() {
   document.getElementById("result").textContent = random;
   logHistory("Rolled from " + select, random);
   if (document.getElementById('toggle-sound').checked) {
-    document.getElementById('sfx-roll').play();
+    const sfx = document.getElementById('sfx-roll');
+  if (sfx && typeof sfx.play === "function") {
+    sfx.play().catch(() => {});
+  }
   }
 }
 
@@ -174,6 +180,39 @@ function updateMeter() {
 
 function copyResult() {
   const resultText = document.getElementById("result").innerText;
+  if (!resultText) return;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(resultText).then(() => {
+      showCopyFeedback();
+    }).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+
+  function fallbackCopy() {
+    const temp = document.createElement("textarea");
+    temp.value = resultText;
+    document.body.appendChild(temp);
+    temp.select();
+    try {
+      document.execCommand("copy");
+      showCopyFeedback();
+    } catch (err) {
+      alert("Copy failed. Please copy manually.");
+    }
+    document.body.removeChild(temp);
+  }
+
+  function showCopyFeedback() {
+    const feedback = document.getElementById("copy-feedback");
+    if (feedback) {
+      feedback.style.display = "inline";
+      setTimeout(() => feedback.style.display = "none", 1500);
+    }
+  }
+}
+
   if (!resultText) return;
 
   navigator.clipboard.writeText(resultText).then(() => {
