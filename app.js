@@ -30,6 +30,7 @@ function rollTable() {
   const random = results[Math.floor(Math.random() * results.length)];
   lastResult = random;
   document.getElementById("result").textContent = random;
+  document.getElementById('sfx-roll').play();
 }
 
 function updateScore(delta) {
