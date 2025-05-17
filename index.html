@@ -31,7 +31,11 @@
   <button onclick="showFavorites()">📜 Show Favorites</button>
   <span id="copy-feedback" style="display:none; font-size: 1rem; color: lime;">Copied!</span>
 
-  <h2>Mayhem Score</h2>
+  <label style="display:block; margin-top:1rem;">
+      <input type="checkbox" id="toggle-sound" checked>
+      Enable Sound Effects
+    </label>
+<h2>Mayhem Score</h2>
   <div class="score-controls">
     <button onclick="updateScore(-1)">-</button>
     <span id="score">0</span>
